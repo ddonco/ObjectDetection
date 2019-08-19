@@ -2,10 +2,10 @@ from fastai.callbacks import *
 
 from helper.object_detection_helper import *
 
-from .BoundingBox import BoundingBox
-from .BoundingBoxes import BoundingBoxes
-from .Evaluator import *
-from .utils import *
+from metrics.BoundingBox import BoundingBox
+from metrics.BoundingBoxes import BoundingBoxes
+from metrics.Evaluator import *
+from metrics.utils import *
 
 class BBLossMetrics(LearnerCallback):
     "Add `loss_func.metrics` to metrics named by `loss_func.metric_names`"
