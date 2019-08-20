@@ -83,7 +83,7 @@ class BBMetrics(LearnerCallback):
 
 class PascalVOCMetric(Callback):
 
-    def __init__(self, anchors, size, metric_names: list, detect_thresh: float=0.3, nms_thresh: float=0.3
+    def __init__(self, anchors, size: Tuple[int, int], metric_names: list, detect_thresh: float=0.3, nms_thresh: float=0.3
                  , images_per_batch: int=-1):
         self.ap = 'AP'
         self.anchors = anchors
@@ -143,7 +143,7 @@ class PascalVOCMetric(Callback):
             for box, cla in zip(bbox_gt, class_gt):
                 temp = BoundingBox(imageName=str(self.imageCounter), classId=self.metric_names_original[cla], x=box[0], y=box[1],
                                w=box[2], h=box[3], typeCoordinates=CoordinatesType.Absolute,
-                               bbType=BBType.GroundTruth, format=BBFormat.XYWH, imgSize=(self.size,self.size))
+                               bbType=BBType.GroundTruth, format=BBFormat.XYWH, imgSize=(self.size[1],self.size[0]))
 
                 self.boundingBoxes.addBoundingBox(temp)
 
@@ -152,7 +152,7 @@ class PascalVOCMetric(Callback):
             for box, cla, scor in list(zip(bbox_pred, preds, scores))[:num_boxes]:
                 temp = BoundingBox(imageName=str(self.imageCounter), classId=self.metric_names_original[cla], x=box[0], y=box[1],
                                    w=box[2], h=box[3], typeCoordinates=CoordinatesType.Absolute, classConfidence=scor,
-                                   bbType=BBType.Detected, format=BBFormat.XYWH, imgSize=(self.size, self.size))
+                                   bbType=BBType.Detected, format=BBFormat.XYWH, imgSize=(self.size[1], self.size[0]))
 
                 self.boundingBoxes.addBoundingBox(temp)
 
