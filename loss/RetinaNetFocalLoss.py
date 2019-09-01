@@ -14,6 +14,7 @@ class RetinaNetFocalLoss(nn.Module):
         self.metric_names = ['BBloss', 'focal_loss']
 
     def _unpad(self, bbox_tgt, clas_tgt):
+
         i = torch.min(torch.nonzero(clas_tgt - self.pad_idx))
         return tlbr2cthw(bbox_tgt[i:]), clas_tgt[i:] - 1 + self.pad_idx
 
