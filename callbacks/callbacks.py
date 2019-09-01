@@ -125,7 +125,7 @@ class PascalVOCMetric(Callback):
             to_keep = nms(bbox_pred, scores, self.nms_thresh)
             bbox_pred, preds, scores = bbox_pred[to_keep].cpu(), preds[to_keep].cpu(), scores[to_keep].cpu()
 
-            t_sz = torch.Tensor([(self.size, self.size)])[None].cpu()
+            t_sz = torch.Tensor([(self.size)])[None].cpu()
             bbox_gt = bbox_gt[np.nonzero(class_gt)].squeeze(dim=1).cpu()
             class_gt = class_gt[class_gt > 0]
             # change gt from x,y,x2,y2 -> x,y,w,h
