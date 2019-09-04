@@ -41,9 +41,10 @@ class RetinaNetFocalLoss(nn.Module):
         clas_tgt = clas_tgt + 1
         clas_mask = matches >= 0
         clas_pred_resize = torch.zeros([clas_mask.size(0), clas_pred.size(1)], dtype=torch.float32).to(clas_pred.device)
-        print(f"size: {clas_pred_resize.size()}, device: {clas_pred.device}")
         clas_pred_resize[:clas_pred.size(0), :] = clas_pred
+        print(f"clas_pred: {clas_pred.size()}, clas_pred_resize: {clas_pred_resize.size()}")
         clas_pred = clas_pred_resize[clas_mask]
+        print(f"clas_pred: {clas_pred.size()}")
         clas_tgt = torch.cat([clas_tgt.new_zeros(1).long(), clas_tgt])
         clas_tgt = clas_tgt[matches[clas_mask]]
         return bb_loss, self._focal_loss(clas_pred, clas_tgt) / torch.clamp(bbox_mask.sum(), min=1.)
