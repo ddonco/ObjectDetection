@@ -74,7 +74,7 @@ def activ_to_bbox(acts, anchors, flatten=True):
     if flatten:
         print(f"acts: {acts.size()}")
         acts.mul_(acts.new_tensor([[0.1, 0.1, 0.2, 0.2]]))
-        print(f"acts: {acts.size()}, anchors: {anchors.size()}")
+        print(f"acts: {acts}, anchors: {anchors}")
         centers = anchors[...,2:] * acts[...,:2] + anchors[...,:2]
         sizes = anchors[...,2:] * torch.exp(acts[...,2:])
         return torch.cat([centers, sizes], -1)
