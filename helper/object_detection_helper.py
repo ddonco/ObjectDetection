@@ -72,7 +72,7 @@ def show_boxes(boxes):
 def activ_to_bbox(acts, anchors, flatten=True):
     "Extrapolate bounding boxes on anchors from the model activations."
     if flatten:
-        acts_resize = torch.zeros([anchors.size()], dtype=torch.float32).to(acts.device)
+        acts_resize = torch.zeros(tuple(anchors.size()), dtype=torch.float32).to(acts.device)
         acts_resize[:acts.size(0), :] = acts
         acts = acts_resize
         acts.mul_(acts.new_tensor([[0.1, 0.1, 0.2, 0.2]]))
